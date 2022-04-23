@@ -13,4 +13,4 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
 
 # Installing OpenAPI spec Swagger bundle generator and OpenAPI mock server - these are used in post start
-RUN su node -c "npm install -g swagger-cli open-api-mocker"
+RUN su node -c "npm install -g swagger-cli open-api-mocker firebase next"
