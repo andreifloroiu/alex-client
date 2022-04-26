@@ -1,8 +1,6 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
-import { collection, DocumentSnapshot, getDocs, getFirestore, limit, query, where } from 'firebase/firestore';
-import {} from 'firebase/storage';
+import { collection, getDocs, getFirestore, limit, query, where } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -15,18 +13,17 @@ const firebaseConfig = {
   measurementId: "G-5DFT7CENX9"
 };
 
-export const firebase = !getApps().length ?
-  initializeApp(firebaseConfig)
-  : getApp('alex-code4ro');
+const apps = getApps()
+export const app = !apps.length ?
+  initializeApp(firebaseConfig, 'alex')
+  : getApp('alex');
 
 // Auth exports
-export const googleAuthProvider = getAuth(firebase);
-
-// Firestore exports
-export const db = getFirestore(firebase);
-
+export const auth = getAuth(app);
+// Firestore database
+export const db = getFirestore(app);
 // Storage exports
-export const storage = getStorage(firebase);
+export const storage = getStorage(app);
 
 /// Helper functions
 
@@ -39,4 +36,20 @@ export async function getUserWithUsername(username:string) {
   const q = query(usersRef, where('username', '==', username), limit(1));
   const querySnapshot = await getDocs(q);
   return querySnapshot.docs[0]?.data;
+}
+
+/**`
+ * Gets if CSO profile is created.
+ * @param  {string} profileId
+ */
+export async function getIsCSOProfileCreated(profileId = 'default') {
+  const ref = collection(db, 'CSOProfile')
+  const q = query(ref, where('id', '==', profileId), limit(1))
+  const querySnapshot = await getDocs(q)
+  if ((querySnapshot?.docs?.length ?? 0) == 0) {
+    return false
+  }
+  const data = querySnapshot?.docs[0]?.data()
+  console.log(JSON.stringify(data, null, 2))
+  return data?.isProfileComplete
 }
