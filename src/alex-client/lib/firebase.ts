@@ -2,22 +2,14 @@ import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { collection, doc, getDoc, getDocs, getFirestore, limit, query, where } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import { firebaseConfig } from '../config/firebase-config';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBnSrI75QWNR8y4lKmUKYPDjcwrf11fqNI",
-  authDomain: "alex-code4ro.firebaseapp.com",
-  projectId: "alex-code4ro",
-  storageBucket: "alex-code4ro.appspot.com",
-  messagingSenderId: "878504888355",
-  appId: "1:878504888355:web:d1f3d02c4489563a834996",
-  measurementId: "G-5DFT7CENX9"
-};
-
+// Check if Firebase via Firebase SDK apps collection.
 const apps = getApps()
+// Get Firebase app
 export const app = !apps.length ?
   initializeApp(firebaseConfig, 'alex')
   : getApp('alex');
-
 // Auth exports
 export const auth = getAuth(app);
 // Firestore database
