@@ -1,6 +1,6 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { collection, getDocs, getFirestore, limit, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, limit, query, where } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -43,13 +43,12 @@ export async function getUserWithUsername(username:string) {
  * @param  {string} profileId
  */
 export async function getIsCSOProfileCreated(profileId = 'default') {
-  const ref = collection(db, 'CSOProfile')
-  const q = query(ref, where('id', '==', profileId), limit(1))
-  const querySnapshot = await getDocs(q)
-  if ((querySnapshot?.docs?.length ?? 0) == 0) {
+  const ref = doc(db, 'CSOProfile', profileId)
+  const docSnap = await getDoc(ref)
+  if (!docSnap.exists()) {
+    console.warn('Document CSOProfile/default does not exist!')
     return false
   }
-  const data = querySnapshot?.docs[0]?.data()
-  console.log(JSON.stringify(data, null, 2))
-  return data?.isProfileComplete
+  const data = docSnap.data()
+  return data.isProfileComplete
 }

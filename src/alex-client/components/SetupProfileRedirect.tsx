@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import { getIsCSOProfileCreated } from "../lib/firebase";
 
-const SetupProfile = () => {
-    debugger;
+const SetupProfileRedirect = () => {
     const router = useRouter()
     getIsCSOProfileCreated()
         .then((data) => { if (!data) return router.push('init/'); })
@@ -10,4 +9,4 @@ const SetupProfile = () => {
     return (null)
 }
 
-export default SetupProfile
+export default SetupProfileRedirect
