@@ -1,8 +1,8 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { collection, doc, getDoc, getDocs, getFirestore, limit, query, where } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
-import { firebaseConfig } from '../config/firebase-config';
+import { firebaseConfig } from '../config/firebase.config';
 
 // Check if Firebase via Firebase SDK apps collection.
 const apps = getApps()
