@@ -6,10 +6,19 @@ export const firebaseUiConfig = {
     tosUrl: '/terms-of-service',
     privacyPolicyUrl: '/privacy-policy',
     signInOptions: [
-        EmailAuthProvider.PROVIDER_ID,
-        GoogleAuthProvider.PROVIDER_ID,
-        FacebookAuthProvider.PROVIDER_ID,
-        TwitterAuthProvider.PROVIDER_ID,
-        GithubAuthProvider.PROVIDER_ID,      
+        { 
+            provider: EmailAuthProvider.PROVIDER_ID,
+            requireDisplayName: false
+        },
+        {
+            provider: GoogleAuthProvider.PROVIDER_ID,
+            scopes: [],
+            customParameters: {}
+        },
+        {
+            provider: FacebookAuthProvider.PROVIDER_ID,
+            scopes: ['email'],
+            customParameters: {}
+        }  
     ]
 }
