@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import styles from '../styles/Main.module.css'
+import styles from '../../styles/Main.module.css'
 
 const AlexFooter = () => {
     return (

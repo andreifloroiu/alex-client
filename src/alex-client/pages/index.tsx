@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import AlexFooter from '../components/AlexFooter'
+import AlexFooter from '../components/layouts/AlexFooterLayout'
 import SetupProfileRedirect from '../components/SetupProfileRedirect'
 import styles from '../styles/Main.module.css'
 
