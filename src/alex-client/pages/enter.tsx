@@ -45,18 +45,12 @@ function SignOutLayout() {
 
 // Sign in layout
 function SignInLayout() {
-  const uiConfig = {
-    ...firebaseUiConfig,
-    callbacks: {
-      signInSuccessWithAuthResult: () => false
-    }
-  }
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>
         Enter ALEX!
       </h1>
-      <AuthElement uiConfig={uiConfig} firebaseAuth={auth} />
+      <AuthElement uiConfig={firebaseUiConfig} />
     </main>
   )
 }

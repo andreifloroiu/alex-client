@@ -1,28 +1,21 @@
 import React, { useEffect } from 'react'
+import firebase from 'firebase/compat/app'
 import firebaseui from 'firebaseui'
+import { firebaseUiConfig } from '../../config/firebase-ui.config';
+import 'firebaseui/dist/firebaseui.css'
 
 export default function AuthElement(props:any) {
     // Global ID for the element.
     const ELEMENT_ID = 'firebaseui_container';
     // Destructure props
-    const {firebaseAuth, uiConfig, uiCallback} = props;    
-    useEffect(() => {        
-        const uiWidget = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebaseAuth);
+    const {uiConfig} = props;    
+    useEffect(() => {
+        const compatApp = !firebase.apps.length ? 
+          firebase.initializeApp(firebaseUiConfig, 'compat-alex')
+          : firebase.app('compat-alex');
+        const uiWidget = new firebaseui.auth.AuthUI(compatApp.auth);
         if (uiConfig.signInFlow == 'popup') {
             uiWidget.reset();
-        }
-        // Store user signed in state.
-        let userSignedIn = false;
-        // Track auth state of firebase auth.
-        firebaseAuth.onAuthStateChanged((user: any) => {
-            if (!user && userSignedIn) {
-                uiWidget.reset();
-            }
-            userSignedIn = !!user;
-        });
-        // Trigger callback if set
-        if (uiCallback) {
-            uiCallback(uiWidget)
         }
         // Start widget
         uiWidget.start(`#${ELEMENT_ID}`, uiConfig)
@@ -30,7 +23,7 @@ export default function AuthElement(props:any) {
         return () => {
           uiWidget.delete();
         }
-      }, [firebaseAuth, uiCallback, uiConfig])
+      }, [uiConfig])
     return (
         <div id={ELEMENT_ID} />
     )
