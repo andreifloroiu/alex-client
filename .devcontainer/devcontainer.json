@@ -24,6 +24,7 @@
 		"dbaeumer.vscode-eslint",
 		"github.vscode-pull-request-github",
 		"eamodio.gitlens",
+		"toba.vsfire",
 		"vscode-icons-team.vscode-icons"
 	],
 
