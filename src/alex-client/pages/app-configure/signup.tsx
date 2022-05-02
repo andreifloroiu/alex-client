@@ -1,21 +1,29 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import AlexFooter from '../../components/layouts/AlexFooterLayout'
-import SetupProfileRedirect from '../../components/SetupProfileRedirect'
+import { auth } from '../../lib/firebase'
 import styles from '../../styles/Main.module.css'
 
-const InitFlow: NextPage = () => {
+const InitSignupFlow: NextPage = () => {
+  const router = useRouter()
+  const [user] = useAuthState(auth)
+  if (!!user) {
+    router.push('/admin-init-flow/')
+    return (null)
+  }
   return (    
     <div className={styles.container}>
       <Head>
         <title>ALEX</title>
-        <meta name="description" content="ALEX - RO NGO APP" />
+        <meta name="description" content="Signup with ALEX" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to ALEX!
+          Signup with ALEX
         </h1>
 
         <p className={styles.description}>
@@ -30,4 +38,4 @@ const InitFlow: NextPage = () => {
   )
 }
 
-export default InitFlow
+export default InitSignupFlow

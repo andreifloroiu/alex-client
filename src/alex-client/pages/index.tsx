@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import AlexFooter from '../components/layouts/AlexFooterLayout'
-import SetupProfileRedirect from '../components/SetupProfileRedirect'
+import { useAppConfigured } from '../lib/hooks'
 import styles from '../styles/Main.module.css'
 
 const Home: NextPage = () => {
+  useAppConfigured()
   return (    
     <div className={styles.container}>
-      <SetupProfileRedirect />
       <Head>
         <title>ALEX</title>
         <meta name="description" content="ALEX - RO NGO APP" />

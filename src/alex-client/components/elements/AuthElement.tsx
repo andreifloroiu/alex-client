@@ -13,15 +13,22 @@ export default function AuthElement(props:any) {
         const compatApp = !firebase.apps.length ? 
           firebase.initializeApp(firebaseUiConfig, 'compat-alex')
           : firebase.app('compat-alex');
-        const uiWidget = new firebaseui.auth.AuthUI(compatApp.auth);
-        if (uiConfig.signInFlow == 'popup') {
-            uiWidget.reset();
-        }
-        // Start widget
-        uiWidget.start(`#${ELEMENT_ID}`, uiConfig)
+        let uiWidget:(firebaseui.auth.AuthUI | null) = null ;
+        try {
+          uiWidget = new firebaseui.auth.AuthUI(compatApp.auth);
+          if (uiConfig.signInFlow == 'popup') {
+              uiWidget.reset();
+          }
+          // Start widget
+          uiWidget.start(`#${ELEMENT_ID}`, uiConfig)
+        } 
+        catch (e) {
+          console.error(e);
+          return (null);
+        }   
         // Returned function will be called on component unmount 
         return () => {
-          uiWidget.delete();
+          uiWidget?.delete();
         }
       }, [uiConfig])
     return (

@@ -1,17 +1,21 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import AuthElement from '../components/elements/AuthElement';
+import { useRouter } from 'next/router';
 import AlexFooter from '../components/layouts/AlexFooterLayout'
-import { firebaseUiConfig } from '../config/firebase-ui.config';
 import { auth } from '../lib/firebase'
+import { useIsSignedIn } from '../lib/hooks';
+import { ROUTE_HOME } from '../lib/routes.constants';
 import styles from '../styles/Main.module.css'
 
 
 const Enter: NextPage = () => {
-  const [ user ] = useAuthState(auth);
-  const isSignedIn = !!user
+  const { isSignedIn, user } = useIsSignedIn();
+  const router = useRouter();
+  if (isSignedIn) {
+    router.push(ROUTE_HOME)
+    return (null)
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -50,7 +54,11 @@ function SignInLayout() {
       <h1 className={styles.title}>
         Enter ALEX!
       </h1>
-      <AuthElement uiConfig={firebaseUiConfig} />
     </main>
   )
+}
+
+// Sign up layout
+function SignUpLayout() {
+
 }
