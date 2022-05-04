@@ -1,8 +1,9 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { isUserAuthenticated } from "./lib/utils";
+import { DEFAULT_REGION, isUserAuthenticated } from "./lib/utils";
 
-export const checkAppConfiguredExport = functions.https.onRequest(async (request, response) => {
+export const checkAppConfiguredExport = 
+  functions.region(DEFAULT_REGION).https.onRequest(async (request, response) => {
     if (request.method != 'GET') {
       response.status(405).send('Method not allowed!')
       return;

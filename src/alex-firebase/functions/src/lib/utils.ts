@@ -3,6 +3,8 @@ import { auth } from "firebase-admin";
 
 const BEARER_SPLIT = 'Bearer '
 
+export const DEFAULT_REGION = 'europe-west1'
+
 export const isUserAuthenticated = async (request:Request) => {
     const token = request?.headers?.authorization?.split(BEARER_SPLIT)[1]
     if (!token) {
