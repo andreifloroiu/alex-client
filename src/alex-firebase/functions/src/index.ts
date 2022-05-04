@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase-admin/app";
-import { checkAppConfiguredExport } from "./rest.app-configure";
+import * as appConfigure from "./rest.app-configure";
 
 initializeApp()
 
-export const checkAppConfigured = checkAppConfiguredExport
+export const checkAppConfigured = appConfigure.checkAppConfigured
+export const checkHasUsers = appConfigure.checkHasUsers
