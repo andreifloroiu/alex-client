@@ -10,7 +10,8 @@ export const isUserAuthenticated = async (request:Request) => {
     }
     try {
         const decoded = await auth().verifyIdToken(token)
-        return !!decoded;
+        const now = new Date().getUTCSeconds()
+        return decoded.exp > now
     }
     catch (error) {
         return false;
