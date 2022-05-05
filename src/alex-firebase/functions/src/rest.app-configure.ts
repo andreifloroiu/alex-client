@@ -16,10 +16,13 @@ export const checkAppConfigured =
     }
     const doc = await db.collection('cso-profile').doc("default").get();
     const data = doc.data();
-    const isProfileComplete = data?.isProfileComplete ?? false;
-    const hasFinancialData = data?.hasFinancialData ?? false;
-    const hasBankAccount = data?.hasBankAccount ?? false;
-    response.json({isProfileComplete, hasFinancialData, hasBankAccount});
+    // Fill the result data.
+    const hasLegalInfo = data?.configurationState?.hasLegalInfo ?? false;
+    const hasLegalRepresentative = data?.configurationState?.hasLegalRepresentative ?? false;
+    const hasFinancialData = data?.configurationState?.hasFinancialData ?? false;
+    const hasBankAccounts = data?.configurationState?.hasBankAccounts ?? false;
+    const isComplete = data?.configurationState?.isComplete ?? false;
+    response.json({hasLegalInfo, hasLegalRepresentative, hasFinancialData, hasBankAccounts, isComplete});
   });
 
 export const checkHasUsers =

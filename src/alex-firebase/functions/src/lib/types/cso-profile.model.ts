@@ -3,7 +3,7 @@ export interface CSOProfile {
     name: string
     registerName: string
     legalRepresentative: CSOLegalRepresentative
-    configureState: CSOCompletionPhase
+    configurationState: CSOCompletionPhase
 }
 export interface CSOLegalRepresentative {
     firstname: string
