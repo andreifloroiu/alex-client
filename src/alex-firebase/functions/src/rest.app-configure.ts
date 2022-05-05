@@ -26,7 +26,7 @@ export const checkAppConfigured =
   });
 
 export const checkHasUsers =
-functions.region(DEFAULT_REGION).https.onRequest(async (request, response) => {
+  functions.region(DEFAULT_REGION).https.onRequest(async (request, response) => {
   if (request.method != 'GET') {
     response.status(405).send('Method not allowed!')
     return
