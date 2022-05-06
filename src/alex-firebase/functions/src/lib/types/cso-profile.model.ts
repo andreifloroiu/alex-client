@@ -1,4 +1,5 @@
-export interface CSOProfile {
+export interface CSOProfileDocument {
+    id: string
     fiscalId: string
     name: string
     registerName: string
@@ -13,9 +14,9 @@ export interface CSOLegalRepresentative {
     address: string
 }
 export interface CSOCompletionPhase {
-    hasLegalInfo: false,
-    hasLegalRepresentative: false,
-    hasFinancialData: false,
-    hasBankAccounts: false,
+    hasLegalInfo: false
+    hasLegalRepresentative: false
+    hasFinancialData: false
+    hasBankAccounts: false
     isComplete: false
 }

@@ -1,11 +1,8 @@
 import { Request } from "firebase-functions"
 import { auth } from "firebase-admin";
 
-const BEARER_SPLIT = 'Bearer '
-
-export const DEFAULT_REGION = 'europe-west1'
-
-export const isUserAuthenticated = async (request:Request) => {
+export const isRequestAuthenticated = async (request:Request) => {
+    const BEARER_SPLIT = 'Bearer '
     const token = request?.headers?.authorization?.split(BEARER_SPLIT)[1]
     if (!token) {
         return false
@@ -16,6 +13,6 @@ export const isUserAuthenticated = async (request:Request) => {
         return decoded.exp > now
     }
     catch (error) {
-        return false;
+        return false
     }
 }
